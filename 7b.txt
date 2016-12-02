@@ -1,0 +1,39 @@
+// 7b
+
+
+#include <iostream>
+//#include <string>
+//#include <iomanip>
+//#include <fstream>
+//#include <vector>
+using namespace std;
+
+int main()
+{
+	int luckyNumbers[10] = { 13579, 26791, 26792, 33445, 55555, 62483, 77777, 79422, 85647, 93121 };
+	int winningNumber;
+	int count = 0;
+	bool winner = false;
+
+	cout << "enter a five digit number ";
+	cin >> winningNumber;
+	while (count < 10 && !winner)
+	{
+		cout << "checking " << luckyNumbers[count] << endl;
+		if (luckyNumbers[count] == winningNumber)
+		{
+			winner = true;
+			cout << "stop check\n";
+		}
+		count++;
+	}
+
+	if (winner == true)
+		cout << "you have won";
+	else
+		cout << "you lost";
+	
+	cin.ignore();  // all done
+	cin.get();
+	return 0;
+}
