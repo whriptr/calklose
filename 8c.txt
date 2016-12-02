@@ -1,0 +1,43 @@
+// 8c
+
+
+#include <iostream>
+#include <string>
+//#include <iomanip>
+#include <fstream>
+#include <vector>
+using namespace std;
+
+int main()
+{
+	vector<string> names = { "Aleshia", "Evan", "Frank", "Ulysses", "Tyisha", "Eric", "Marge" };
+	vector<int> salesNumbers = { 100, 200, 250, 175, 125, 150, 60 };
+	double total = 0;
+
+	for (int val : salesNumbers)
+	{
+		total += val;
+
+	}
+
+	string topSalesPerson = names[0];
+	int topSalesNumber = salesNumbers[0];
+	cout << "Sales Person    Cars Sold   % of Sales" << endl;
+	
+	for (int count = 0; count < names.size(); count++)
+	{
+		cout << names[count];
+		cout << "          " << salesNumbers[count] << "      " << total / salesNumbers[count] << "%" << endl;
+		if (salesNumbers[count] > topSalesNumber)
+		{
+			topSalesNumber = salesNumbers[count];
+			topSalesPerson = names[count];
+		}
+
+	}
+	cout << "top sales person " << topSalesPerson << endl;
+
+	cout << "press enter to close program";
+	cin.get();
+	return 0;
+}
