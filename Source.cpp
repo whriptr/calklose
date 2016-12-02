@@ -1,6 +1,4 @@
-// CIS22A Assignment Lab 8a
-// Program: Selection Sort verses Bubble Sort Benchmark
-// Clifford Smith
+// lab 8a
 
 #include <iostream>
 //#include <string>
