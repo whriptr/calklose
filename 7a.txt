@@ -1,0 +1,41 @@
+// 7a
+
+#include <iostream>
+#include <string>
+//#include <iomanip>
+#include <fstream>
+#include <vector>
+using namespace std;
+
+int main()
+{
+	ifstream worldSeriesWinnersTxt;
+	worldSeriesWinnersTxt.open("WorldSeriesWinners.txt");
+	vector<string> winners;
+	string teamName;
+	string teamChoice;
+	int total = 0;
+
+	cout << "creating array...\n";
+	while (!worldSeriesWinnersTxt.eof())
+	{
+		getline(worldSeriesWinnersTxt, teamName);
+		winners.push_back(teamName);
+	}
+	cout << "done\n";
+
+	cout << endl << "enter team name ";
+	getline(cin, teamChoice);
+	for (string val : winners)
+	{
+		if (teamChoice == val)
+		{
+			//cout << "found match\n";
+			total++;
+		}
+	}
+	cout << teamChoice << " have won " << total << " world series";
+
+	cin.get();
+	return 0;
+}
