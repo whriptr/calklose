@@ -7,6 +7,76 @@
 #include <vector>
 using namespace std;
 
+void linearSearch(vector<int>);
+void binarySearch(vector<int>);
+
+void linearSearch(vector<int> sortedArray)
+{
+	int searchNumbers[3] = { 26, 50, 92 };  // numbers to search for
+	int value = 0;  // the number to search for
+	int total = 0;
+	int index = 0; // Used as a subscript to search array
+	bool found = false; // Flag to indicate if the value was found
+
+	for (int count = 0; count < 3; count++)
+	{
+		found = false;
+		index = 0;
+		total = 0;
+		value = searchNumbers[count];
+		while (index < sortedArray.size() && !found)
+		{
+			if (sortedArray[index] == value) // If the value is found
+			{
+				found = true; // Set the flag
+			}
+			total++;
+			index++; // Go to the next element
+		}
+		if (found)
+			cout << "linear search found " << value << " in "<< total << " steps\n";
+		else
+			cout << "linear search did not find " << value << " in " << total << " steps\n";
+	}
+}
+
+void binarySearch(vector<int> sortedArray)
+{
+	int searchNumbers[3] = { 26, 50, 92 };  // numbers to search for
+	int value = 0;
+	int total = 0;
+	bool found = false; // Flag to indicate if the value was found
+
+	for (int count = 0; count < 3; count++)
+	{
+		int first = 0; // First array element
+		int	last = sortedArray.size() - 1; // Last array element
+		int	middle; // Midpoint of search
+		int	position = -1; // Position of search value
+		total = 0;
+		found = false;
+		value = searchNumbers[count];  // the number to search for
+		while (!found && first <= last)
+		{
+			middle = (first + last) / 2; // Calculate midpoint
+			if (sortedArray[middle] == value) // If value is found at mid
+			{
+				found = true;
+				position = middle;
+			}
+			else if (sortedArray[middle] > value) // If value is in lower half
+				last = middle - 1;
+			else
+				first = middle + 1; // If value is in upper half
+			total++;
+		}
+		if (found)
+			cout << "binary search found " << value << " in " << total << " steps\n";
+		else
+			cout << "binary search did not find " << value << " in " << total << " steps\n";
+	}
+}
+
 int main()
 {
 	ifstream sortedNumbersFile;
@@ -14,9 +84,9 @@ int main()
 	vector<int> searchArray;
 	int temp;
 
-	if (!sortedNumbersFile)
-		cout << "error file not open";
-	else
+	if (!sortedNumbersFile)  // is the file open?
+		cout << "error file not open \n";
+	else  // if the file is open run the program 
 	{
 		cout << "creating array...\n";
 		while (!sortedNumbersFile.eof())
@@ -24,69 +94,13 @@ int main()
 			sortedNumbersFile >> temp;
 			searchArray.push_back(temp);
 		}
+		sortedNumbersFile.close();
 		cout << "done\n";
+		linearSearch(searchArray);
+		binarySearch(searchArray);
 	}
 
-	for (int val : searchArray)
-	{
-		cout << val << endl;
-	}
-
-	int value = 0;  // search value
-	cout << "enter a number ";
-	cin >> value;
-	cin.ignore();
-	//cin.clear();
-	int total = 0;
-	int index = 0; // Used as a subscript to search array
-	//int position = -1; // To record position of search value
-	bool found = false; // Flag to indicate if the value was found
-	
-	while (index < searchArray.size() && !found)
-	{
-		if (searchArray[index] == value) // If the value is found
-		{
-			found = true; // Set the flag
-			//position = index; // Record the value's subscript
-		}
-		total++;
-		index++; // Go to the next element
-	}
-	if (!found)
-		cout << "number not found and " << total << "steps\n";
-	else
-		cout << "binary search steps " << total << endl;
-
-	cout << "enter a number ";
-	cin >> value;
-	cin.ignore();
-	int first = 0, // First array element
-		last = searchArray.size() - 1, // Last array element
-		middle, // Midpoint of search
-		position = -1; // Position of search value
-	total = 0;
-	found = false; // Flag
-
-	while (!found && first <= last)
-	{
-		middle = (first + last) / 2; // Calculate midpoint
-		if (searchArray[middle] == value) // If value is found at mid
-		{
-			found = true;
-			position = middle;
-		}
-		else if (searchArray[middle] > value) // If value is in lower half
-			last = middle - 1;
-		else
-			first = middle + 1; // If value is in upper half
-		total++;
-	}
-	if (!found)
-		cout << "number not found and " << total << "steps\n";
-	else
-		cout << "binary search steps " << total << endl;
-
-	cout << "press enter to close program";
+	cout << endl << "press enter to close program";
 	cin.get();
 	return 0;
 }
