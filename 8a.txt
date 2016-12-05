@@ -1,6 +1,5 @@
 // 8a
 
-
 #include <iostream>
 //#include <string>
 //#include <iomanip>
@@ -8,86 +7,107 @@
 #include <vector>
 using namespace std;
 
+void selectionSort(vector<int>);
+void bubbleSort(vector<int>);
+
 int main()
 {
-	int temp1;
-	vector<int> bubbleSort;
-	vector<int> selectionSort;
 	ifstream unsortedNumbersFile;
 	unsortedNumbersFile.open("unsortedData.txt");
+	vector<int> bubbleArray;
+	vector<int> selectionArray;
+	int temp1;
 
-	if (!unsortedNumbersFile)
+	if (!unsortedNumbersFile)  // is the file open?
 		cout << "error file not open";
-	else
+	else  // if the file is open, run the program
 	{
 		cout << "creating arrays...\n";
-		while (!unsortedNumbersFile.eof())
+		while (!unsortedNumbersFile.eof())  // create the two arrays
 		{
 			unsortedNumbersFile >> temp1;
-			bubbleSort.push_back(temp1);
-			selectionSort.push_back(temp1);
+			bubbleArray.push_back(temp1);  // the bubbleArray
+			selectionArray.push_back(temp1);  // the selectionArray
 		}
+		unsortedNumbersFile.close();
 		cout << "done\n";
-	}
-	cout << "array size " << bubbleSort.size() << endl;
 
+		selectionSort(selectionArray);  // sort the selectionArray with selectionSort function
+		bubbleSort(bubbleArray);  // sort the bubbleArray with bubbleSort function
+	}
+
+	cout << endl << "press enter to close program";
+	cin.get();
+	return 0;
+}
+
+void selectionSort(vector<int> unsortedArray)  // this function sorts using the selection sort method
+{
+	ofstream sortedNumbersFile;
+	sortedNumbersFile.open("sortedSelectionData.txt");
 	bool swap = true;
 	int temp;
-	int total = 0;
+	int total = 0;  // exchange tracker
 
-	while (swap == true)
+	cout << endl << "sorting array using selection sort method...\n";
+	while (swap == true)  // sort and track the number of exchanges made
 	{
 		swap = false;
-		for (int count = 0; count < (bubbleSort.size() - 1); count++)
+		for (int count = 0; count < (unsortedArray.size() - 1); count++)
 		{
-			if (bubbleSort[count] > bubbleSort[count + 1])
+			if (unsortedArray[count] > unsortedArray[count + 1])  // if an element is smaller than the preceding element, swap the two elements
 			{
-				temp = bubbleSort[count];
-				bubbleSort[count] = bubbleSort[count + 1];
-				bubbleSort[count + 1] = temp;
-				total++;
+				temp = unsortedArray[count];
+				unsortedArray[count] = unsortedArray[count + 1];
+				unsortedArray[count + 1] = temp;
+				total++;  // exchange tracker
 				swap = true;
 			}
 		}
 	}
-	ofstream sortedNumbersFile;
-	sortedNumbersFile.open("sortedBubbleData.txt");
+	cout << "selection sort had " << total << " exchanges" << endl;  // print out the number of exchanges made
 
-	cout << "bubble sort exchanges " << total << endl;
-	for (int val : bubbleSort)
+	cout << "creating sortedSelectionData.txt...\n";
+	for (int val : unsortedArray)  // create the text file
 	{
 		sortedNumbersFile << val << endl;
 	}
+	sortedNumbersFile.close();
+	cout << "done\n";
+}
 
-	total = 0;
-	int startScan, minIndex, minValue;
-	
-	for (startScan = 0; startScan < (selectionSort.size() - 1); startScan++)
+void bubbleSort(vector<int> unsortedArray)  // this function sorts using the bubble sort method
+{
+	ofstream sortedNumbersFile;
+	sortedNumbersFile.open("sortedBubbleData.txt");
+	int minElement;
+	int minValue;
+	int total = 0;  // exchange tracker
+
+	cout << endl << "sorting array using bubble sort method...\n";
+	for (int count = 0; count < (unsortedArray.size() - 1); count++)  // sort and track the number of exchanges made
 	{
-		minIndex = startScan;
-		minValue = selectionSort[startScan];
-
-		for (int index = startScan + 1; index < selectionSort.size(); index++)
+		minElement = count;
+		minValue = unsortedArray[count];
+		for (int index = count + 1; index < unsortedArray.size(); index++)
 		{
-			if (selectionSort[index] < minValue)
+			if (unsortedArray[index] < minValue)
 			{
-				minValue = selectionSort[index];
-				minIndex = index;
-				total++;
-			}	 
-		 }
-		 selectionSort[minIndex] = selectionSort[startScan];
-		 selectionSort[startScan] = minValue;
+				minValue = unsortedArray[index];
+				minElement = index;
+				total++;  // exchange tracker
+			}
+		}
+		unsortedArray[minElement] = unsortedArray[count];
+		unsortedArray[count] = minValue;
 	}
-	
-	cout << endl << "selection sort exchanges " << total << endl << endl;
-	//for (int val : selectionSort)
-	//{
-	//	cout << val << endl;
-	//}
-	
-	unsortedNumbersFile.close();
-	cout << "press enter to close program";
-	cin.get();
-	return 0;
+	cout << "bubble sort had " << total << " exchanges" << endl;  // print out the number of exchanges made
+
+	cout << "creating sortedBubbleData.txt...\n";
+	for (int val : unsortedArray)  // create the text file
+	{
+		sortedNumbersFile << val << endl;
+	}
+	sortedNumbersFile.close();
+	cout << "done\n";
 }
