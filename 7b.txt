@@ -10,30 +10,38 @@ using namespace std;
 
 int main()
 {
-	int luckyNumbers[10] = { 13579, 26791, 26792, 33445, 55555, 62483, 77777, 79422, 85647, 93121 };
-	int winningNumber;
-	int count = 0;
-	bool winner = false;
+	int luckyNumbers[10] = { 13579, 26791, 26792, 33445, 55555, 62483, 77777, 79422, 85647, 93121 };  // create the array
+	int winningNumber;  // the number to search the array for
+	int count = 0;  // loop counter
+	bool winner = false;  // returns true if winningNumber is found in the array
 
-	cout << "enter a five digit number ";
+	cout << "enter a five digit number  ";
 	cin >> winningNumber;
-	while (count < 10 && !winner)
+	while (cin.fail() || winningNumber < 10000 || winningNumber > 99999)  // validate user input
 	{
-		cout << "checking " << luckyNumbers[count] << endl;
-		if (luckyNumbers[count] == winningNumber)
+		cin.clear();
+		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		cout << "only a five digit number is valid try again  ";
+		cin >> winningNumber;
+	}
+	cin.ignore();
+
+	while (count < 10 && !winner)  // search the array
+	{
+		cout << "checking " << luckyNumbers[count] << endl;  // show the progress
+		if (luckyNumbers[count] == winningNumber)  // if the number is found, set winner to true
 		{
 			winner = true;
-			cout << "stop check\n";
 		}
-		count++;
+		count++;  // add one to the counter
 	}
 
-	if (winner == true)
-		cout << "you have won";
+	if (winner == true)  // print out the results
+		cout << "you have won\n";
 	else
-		cout << "you lost";
+		cout << "you lost\n";
 	
-	cin.ignore();  // all done
+	cout << endl << "press enter to close the program";
 	cin.get();
 	return 0;
 }
