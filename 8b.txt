@@ -10,31 +10,58 @@ using namespace std;
 void linearSearch(vector<int>);
 void binarySearch(vector<int>);
 
+int main()
+{
+	ifstream sortedNumbersFile;
+	sortedNumbersFile.open("sortedBubbleData.txt");
+	vector<int> searchArray;
+	int temp;  // variable for push_back
+
+	if (!sortedNumbersFile)  // is the file open?
+		cout << "error file not open \n";
+	else  // if the file is open run the program 
+	{
+		cout << "creating array...\n";
+		while (!sortedNumbersFile.eof())
+		{
+			sortedNumbersFile >> temp;
+			searchArray.push_back(temp);
+		}
+		sortedNumbersFile.close();
+		cout << "done\n";
+		linearSearch(searchArray);
+		binarySearch(searchArray);
+	}
+
+	cout << endl << "press enter to close program";
+	cin.get();
+	return 0;
+}
+
 void linearSearch(vector<int> sortedArray)
 {
 	int searchNumbers[3] = { 26, 50, 92 };  // numbers to search for
 	int value = 0;  // the number to search for
-	int total = 0;
-	int index = 0; // Used as a subscript to search array
+	int total = 0;  // number of steps taken
+	//int index = 0;  // Used as a subscript to search array
 	bool found = false; // Flag to indicate if the value was found
 
+	cout << "searching for 26, 50, and 92 using linear search...\n";
 	for (int count = 0; count < 3; count++)
 	{
 		found = false;
-		index = 0;
-		total = 0;
 		value = searchNumbers[count];
-		while (index < sortedArray.size() && !found)
+		total = 0;
+		for (int index = 0; (index < sortedArray.size() && !found); index++)
 		{
 			if (sortedArray[index] == value) // If the value is found
 			{
 				found = true; // Set the flag
 			}
 			total++;
-			index++; // Go to the next element
 		}
 		if (found)
-			cout << "linear search found " << value << " in "<< total << " steps\n";
+			cout << "linear search found " << value << " in " << total << " steps\n";
 		else
 			cout << "linear search did not find " << value << " in " << total << " steps\n";
 	}
@@ -47,6 +74,7 @@ void binarySearch(vector<int> sortedArray)
 	int total = 0;
 	bool found = false; // Flag to indicate if the value was found
 
+	cout << "searching for 26, 50, and 92 using binary search...\n";
 	for (int count = 0; count < 3; count++)
 	{
 		int first = 0; // First array element
@@ -75,32 +103,4 @@ void binarySearch(vector<int> sortedArray)
 		else
 			cout << "binary search did not find " << value << " in " << total << " steps\n";
 	}
-}
-
-int main()
-{
-	ifstream sortedNumbersFile;
-	sortedNumbersFile.open("sortedBubbleData.txt");
-	vector<int> searchArray;
-	int temp;
-
-	if (!sortedNumbersFile)  // is the file open?
-		cout << "error file not open \n";
-	else  // if the file is open run the program 
-	{
-		cout << "creating array...\n";
-		while (!sortedNumbersFile.eof())
-		{
-			sortedNumbersFile >> temp;
-			searchArray.push_back(temp);
-		}
-		sortedNumbersFile.close();
-		cout << "done\n";
-		linearSearch(searchArray);
-		binarySearch(searchArray);
-	}
-
-	cout << endl << "press enter to close program";
-	cin.get();
-	return 0;
 }
