@@ -11,31 +11,38 @@ int main()
 {
 	ifstream worldSeriesWinnersTxt;
 	worldSeriesWinnersTxt.open("WorldSeriesWinners.txt");
-	vector<string> winners;
-	string teamName;
-	string teamChoice;
-	int total = 0;
+	vector<string> winners;  // array to hold the teams that won the world series
+	string teamName;  // variable for getline 
+	string teamChoice;  // the team to search for
+	int total = 0;  // number of world series wins
 
-	cout << "creating array...\n";
-	while (!worldSeriesWinnersTxt.eof())
+	if (!worldSeriesWinnersTxt)  // is the file open?
+		cout << "error file not open\n";
+	else  // if the file is open run the program
 	{
-		getline(worldSeriesWinnersTxt, teamName);
-		winners.push_back(teamName);
-	}
-	cout << "done\n";
-
-	cout << endl << "enter team name ";
-	getline(cin, teamChoice);
-	for (string val : winners)
-	{
-		if (teamChoice == val)
+		cout << "creating array...\n";
+		while (!worldSeriesWinnersTxt.eof())  // read the text file and create the array
 		{
-			//cout << "found match\n";
-			total++;
+			//winners.push_back(getline(worldSeriesWinnersTxt));  // this was the line I could not get to work
+			getline(worldSeriesWinnersTxt, teamName);
+			winners.push_back(teamName);
 		}
-	}
-	cout << teamChoice << " have won " << total << " world series";
+		worldSeriesWinnersTxt.close();
+		cout << "done\n";
 
+		cout << "enter a team name to search for ";  // get a string to search for
+		getline(cin, teamChoice);
+		for (string val : winners)  // search the array for the string
+		{
+			if (teamChoice == val)  //  if the string is found, add one to the total
+			{
+				total++;
+			}
+		}
+		cout << teamChoice << " have won " << total << " world series" << endl;  // print the results of the search
+	}
+
+	cout << endl << "press enter to close the program";
 	cin.get();
 	return 0;
 }
