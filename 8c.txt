@@ -1,10 +1,9 @@
 // 8c
 
-
 #include <iostream>
 #include <string>
-//#include <iomanip>
-#include <fstream>
+#include <iomanip>
+//#include <fstream>
 #include <vector>
 using namespace std;
 
@@ -12,32 +11,31 @@ int main()
 {
 	vector<string> names = { "Aleshia", "Evan", "Frank", "Ulysses", "Tyisha", "Eric", "Marge" };
 	vector<int> salesNumbers = { 100, 200, 250, 175, 125, 150, 60 };
-	double total = 0;
-
-	for (int val : salesNumbers)
-	{
-		total += val;
-
-	}
-
 	string topSalesPerson = names[0];
 	int topSalesNumber = salesNumbers[0];
-	cout << "Sales Person    Cars Sold   % of Sales" << endl;
-	
-	for (int count = 0; count < names.size(); count++)
+	double totalSales = 0;  // total ammount of cars sold
+
+	for (int val : salesNumbers)  // add up the total ammount of cars sold
 	{
-		cout << names[count];
-		cout << "          " << salesNumbers[count] << "      " << total / salesNumbers[count] << "%" << endl;
-		if (salesNumbers[count] > topSalesNumber)
+		totalSales += val;
+	}
+
+	cout << setprecision(1) << fixed << left;  // formating
+	cout << setw(16) << "Sales Person" << setw(13) << "Cars Sold" << "% of Sales" << endl;  // top line to print out
+
+	for (int count = 0; count < names.size(); count++)  // cout the name, sales, and percent of total sales
+	{
+		cout << setw(16) << names[count] << setw(13) << salesNumbers[count] << (salesNumbers[count] / totalSales) * 100 << "%" << endl;
+		if (salesNumbers[count] > topSalesNumber)  // update top sales person as needed with a linear search
 		{
 			topSalesNumber = salesNumbers[count];
 			topSalesPerson = names[count];
 		}
 
 	}
-	cout << "top sales person " << topSalesPerson << endl;
+	cout << "top sales person is " << topSalesPerson << endl;
 
-	cout << "press enter to close program";
+	cout << endl << "press enter to close the program";
 	cin.get();
 	return 0;
 }
