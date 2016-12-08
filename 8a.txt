@@ -16,7 +16,7 @@ int main()
 	unsortedNumbersFile.open("unsortedData.txt");
 	vector<int> bubbleArray;
 	vector<int> selectionArray;
-	int temp1;
+	int temp;  // variable for push_back
 
 	if (!unsortedNumbersFile)  // is the file open?
 		cout << "error file not open";
@@ -25,9 +25,9 @@ int main()
 		cout << "creating arrays...\n";
 		while (!unsortedNumbersFile.eof())  // create the two arrays
 		{
-			unsortedNumbersFile >> temp1;
-			bubbleArray.push_back(temp1);  // the bubbleArray
-			selectionArray.push_back(temp1);  // the selectionArray
+			unsortedNumbersFile >> temp;
+			bubbleArray.push_back(temp);  // the bubbleArray
+			selectionArray.push_back(temp);  // the selectionArray
 		}
 		unsortedNumbersFile.close();
 		cout << "done\n";
@@ -46,7 +46,7 @@ void selectionSort(vector<int> unsortedArray)  // this function sorts using the 
 	ofstream sortedNumbersFile;
 	sortedNumbersFile.open("sortedSelectionData.txt");
 	bool swap = true;
-	int temp;
+	int temp;  // used to swap values
 	int total = 0;  // exchange tracker
 
 	cout << endl << "sorting array using selection sort method...\n";
@@ -61,7 +61,7 @@ void selectionSort(vector<int> unsortedArray)  // this function sorts using the 
 				unsortedArray[count] = unsortedArray[count + 1];
 				unsortedArray[count + 1] = temp;
 				total++;  // exchange tracker
-				swap = true;
+				swap = true;  // set swap to true so the loop will run again
 			}
 		}
 	}
@@ -89,9 +89,9 @@ void bubbleSort(vector<int> unsortedArray)  // this function sorts using the bub
 	{
 		minElement = count;
 		minValue = unsortedArray[count];
-		for (int index = count + 1; index < unsortedArray.size(); index++)
+		for (int index = count + 1; index < unsortedArray.size(); index++)  //  set the next element in the array for the smallest value
 		{
-			if (unsortedArray[index] < minValue)
+			if (unsortedArray[index] < minValue)  // update index element as needed
 			{
 				minValue = unsortedArray[index];
 				minElement = index;
