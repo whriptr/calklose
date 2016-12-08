@@ -1,4 +1,4 @@
-// 8b 
+// 8b
 
 #include <iostream>
 //#include <string>
@@ -54,11 +54,11 @@ void linearSearch(vector<int> sortedArray)
 		total = 0;
 		for (int index = 0; (index < sortedArray.size() && !found); index++)
 		{
+			total++;
 			if (sortedArray[index] == value) // If the value is found
 			{
 				found = true; // Set the flag
 			}
-			total++;
 		}
 		if (found)
 			cout << "linear search found " << value << " in " << total << " steps\n";
@@ -83,20 +83,29 @@ void binarySearch(vector<int> sortedArray)
 		int	position = -1; // Position of search value
 		total = 0;
 		found = false;
-		value = searchNumbers[count];  // the number to search for
+		value = searchNumbers[count];   // the number to search for
 		while (!found && first <= last)
 		{
-			middle = (first + last) / 2; // Calculate midpoint
-			if (sortedArray[middle] == value) // If value is found at mid
+			
+			total++;
+			middle = (first + last) / 2;  // Calculate midpoint
+			if (sortedArray[middle] == value)  // value is found
 			{
 				found = true;
 				position = middle;
+				cout << "found " << value << endl;
 			}
-			else if (sortedArray[middle] > value) // If value is in lower half
+			else if (sortedArray[middle] > value)  // If value is in lower half
+			{
 				last = middle - 1;
+				cout << "searing " << sortedArray[first] << " - " << sortedArray[last] << endl;
+			}
 			else
-				first = middle + 1; // If value is in upper half
-			total++;
+			{
+				first = middle + 1;  // If value is in upper half
+				cout << "searing " << sortedArray[first] << " - " << sortedArray[last] << endl;
+			}
+			
 		}
 		if (found)
 			cout << "binary search found " << value << " in " << total << " steps\n";
