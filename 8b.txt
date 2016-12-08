@@ -33,7 +33,7 @@ int main()
 		binarySearch(searchArray);
 	}
 
-	cout << endl << "press enter to close program";
+	cout << endl << "press enter to close the program";
 	cin.get();
 	return 0;
 }
@@ -74,7 +74,7 @@ void binarySearch(vector<int> sortedArray)
 	int total = 0;
 	bool found = false; // Flag to indicate if the value was found
 
-	cout << "searching for 26, 50, and 92 using binary search...\n";
+	cout << endl << "searching for 26, 50, and 92 using binary search...\n";
 	for (int count = 0; count < 3; count++)
 	{
 		int first = 0; // First array element
